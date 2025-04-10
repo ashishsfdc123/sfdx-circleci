@@ -11,22 +11,14 @@ jobs:
   build:
     machine: true
     working_directory: ~/ci_app
-    environment:
-      # from https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_standalone.htm
-      # and https://developer.salesforce.com/media/salesforce-cli/manifest.json
-      - DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx/versions/7.209.6/8ba3197/sfdx-v7.209.6-8ba3197-linux-arm.tar.xz
+    
     steps:
       - checkout
       - run:
           name: Install nvm (Node Version Manager)
           command: |
             # Install NVM (Node Version Manager)
-            curl -o- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
-            # Source nvm to make it available in the current session
-            source ~/.nvm/nvm.sh
-            # Install Node.js LTS
-            nvm install --lts
-            nvm use --lts
+            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
       - run:
           name: Install Salesforce CLI (sfdx) via npm
