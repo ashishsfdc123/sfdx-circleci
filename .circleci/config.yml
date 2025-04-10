@@ -46,7 +46,7 @@ jobs:
           name: Run Apex Tests
           command: |
             mkdir -p ~/junit
-            sf apex run test --target-org circle_build_$CIRCLE_BUILD_NUM --no-store --output-dir ~/junit --result-format junit --wait 5
+            sf apex run test --target-org circle_build_$CIRCLE_BUILD_NUM --output-dir ~/junit --result-format junit --wait 5
       - store_test_results:
           path: ~/junit
       - run:
