@@ -1,5 +1,8 @@
 version: 2
 
+orbs:
+  salesforce: salesforce/salesforce-cli@1.3.0
+  
 general:
 # Uncomment the following to specify only a specific branch
 #   branches:
@@ -14,7 +17,7 @@ jobs:
     environment:
       # from https://developer.salesforce.com/docs/atlas.en-us.sfdx_setup.meta/sfdx_setup/sfdx_setup_install_cli_standalone.htm
       # and https://developer.salesforce.com/media/salesforce-cli/manifest.json
-      - DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sf/channels/stable/sf-linux-x64.tar.xz
+      - DX_CLI_URL: https://developer.salesforce.com/media/salesforce-cli/sfdx-linux-x64.tar.xz
     steps:
       - checkout
       - run:
