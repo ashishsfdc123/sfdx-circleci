@@ -39,7 +39,7 @@ jobs:
           name: Setup Org
           command: |
             echo 'Running tests'
-            sf auth jwt --clientid $HUB_CONSUMER_KEY --jwtkeyfile assets/server.key --username $HUB_SFDC_USER --setdefaultdevhubusername --alias hub
+            sf org login jwt  --clientid $HUB_CONSUMER_KEY --jwt-key-file  assets/server.key --username $HUB_SFDX_USER --setdefaultdevhubusername --alias hub
             sfdx force:org:create -s -f ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 2
             sfdx force:source:push -u circle_build_$CIRCLE_BUILD_NUM
       - run:
