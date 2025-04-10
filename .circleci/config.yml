@@ -40,7 +40,7 @@ jobs:
           command: |
             echo 'Running tests'
             sf org login jwt  --client-id $HUB_CONSUMER_KEY --jwt-key-file  assets/server.key --username $HUB_SFDX_USER --set-default-dev-hub --alias devhub
-            sf org create scratch -s --definition-file ~/ci_app/config/project-scratch-def.json -a circle_build_$CIRCLE_BUILD_NUM --wait 2
+            sf org create scratch --definition-file ~/ci_app/config/project-scratch-def.json --alias circle_build_$CIRCLE_BUILD_NUM --wait 2
             sf project deploy start --target-org circle_build_$CIRCLE_BUILD_NUM
       - run:
           name: Run Apex Tests
