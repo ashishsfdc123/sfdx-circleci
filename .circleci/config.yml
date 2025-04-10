@@ -36,7 +36,7 @@ jobs:
           #- openssl rsa -in keys/deploy.key -check -noout
           #- sfdx force:auth:jwt:grant --clientid $DEPLOY_CONSUMER_KEY --jwtkeyfile keys/deploy.key --username $DEPLOY_SFDC_USER -a deploy
       - run:
-          name: Setup Org
+          name: Authorize and Create Scratch Org
           command: |
             echo 'Running tests'
             sf org login jwt  --client-id $HUB_CONSUMER_KEY --jwt-key-file  assets/server.key --username $HUB_SFDX_USER --set-default-dev-hub --alias devhub
@@ -46,13 +46,18 @@ jobs:
           name: Run Apex Tests
           command: |
             mkdir -p ~/junit
-            sfdx force:apex:test:run -c -d ~/junit -r junit --wait 5
+            sf apex run test --no-store --output-dir ~/junit --result-format junit --wait 5
       - store_test_results:
           path: ~/junit
       - run:
+          name: Deploy to Scratch Org
+          command: |
+            echo 'Deployment in Progress'
+            sf project deploy start --target-org circle_build_$CIRCLE_BUILD_NUM
+      - run:
           name: Delete Useless Scratch Org
           command: |
-            sfdx force:org:delete -u circle_build_$CIRCLE_BUILD_NUM -p
+            sf org delete scratch --target-org circle_build_$CIRCLE_BUILD_NUM --no-prompt
 
 ### Uncomment the following if performing deployments
 #deployment:
