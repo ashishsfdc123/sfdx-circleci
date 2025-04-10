@@ -14,19 +14,14 @@ jobs:
     
     steps:
       - checkout
-      - run:
-          name: Install nvm (Node Version Manager)
-          command: |
-            # Install NVM (Node Version Manager)
-            wget -qO- https://raw.githubusercontent.com/nvm-sh/nvm/v0.39.7/install.sh | bash
 
       - run:
           name: Install Salesforce CLI (sfdx) via npm
           command: |
             # Install Salesforce CLI (sfdx) globally via npm
-            npm install -g sfdx-cli
+           npm install -g @salesforce/cli
             # Verify sfdx installation
-            sfdx --version
+            sf --version
       - run:
           name: Create hub key
           command: |
